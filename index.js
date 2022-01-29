@@ -4,10 +4,10 @@ const axios = require("axios");
 
 dotenv.config();
 
-cron.schedule("* 8 * * *", () => {
-  console.log("getting coin info...");
-  getCoinInfo();
-});
+// cron.schedule("* 8 * * *", () => {
+//   console.log("getting coin info...");
+//   getCoinInfo();
+// });
 
 const getCoinInfo = async () => {
   try {
@@ -30,3 +30,5 @@ const getCoinInfo = async () => {
     console.error(error);
   }
 };
+
+getCoinInfo();
