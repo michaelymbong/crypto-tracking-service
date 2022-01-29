@@ -4,12 +4,13 @@ const axios = require("axios");
 
 dotenv.config();
 
-// cron.schedule("* 8 * * *", () => {
-//   console.log("getting coin info...");
-//   getCoinInfo();
-// });
+cron.schedule("* 8 * * *", () => {
+  root();
+});
 
 const getCoinInfo = async () => {
+  let coins = [];
+
   try {
     const options = {
       url: `${process.env.COIN_API_BASE_URL}/v1/cryptocurrency/listings/latest`,
@@ -23,12 +24,53 @@ const getCoinInfo = async () => {
     };
 
     const response = await axios(options);
-    console.log(response.data);
+    coins = response.data.data;
 
     console.log("coin info retrieved");
   } catch (error) {
     console.error(error);
   }
+
+  return coins;
 };
 
-getCoinInfo();
+const processCoinInfo = (coin) => {
+  const {
+    id,
+    name,
+    max_supply,
+    circulating_supply,
+    total_supply,
+    quote: {
+      USD: {
+        price,
+        market_cap,
+        market_cap_dominance,
+        fully_diluted_market_cap,
+      },
+    },
+  } = coin;
+
+  return {
+    id,
+    name,
+    max_supply,
+    circulating_supply,
+    total_supply,
+    price,
+    market_cap,
+    market_cap_dominance,
+    fully_diluted_market_cap,
+  };
+};
+
+const root = async () => {
+  console.log("getting coin info...");
+
+  const coins = await getCoinInfo();
+  const coin_data = coins.map((c) => processCoinInfo(c));
+
+  console.log(coin_data);
+};
+
+// root();
