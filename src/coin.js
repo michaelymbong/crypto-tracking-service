@@ -1,35 +1,56 @@
 import axios from "axios";
 
+export const CURRENCIES = [
+  "bitcoin",
+  "ethereum",
+  "tether",
+  "bnb",
+  "cardano",
+  "solana",
+  "xrp",
+  "terra-luna",
+  "polkadot-new",
+  "dogecoin",
+  "polygon",
+  "shiba-inu",
+];
+
 export const getCoinInfo = async () => {
-  let coins = [];
+  let info = null;
 
   try {
     const options = {
-      url: `${process.env.COIN_API_BASE_URL}/v1/cryptocurrency/listings/latest`,
+      url: `${process.env.COIN_API_BASE_URL}/v1/cryptocurrency/quotes/latest`,
       headers: {
         "X-CMC_PRO_API_KEY": process.env.COIN_API_KEY,
       },
       params: {
-        limit: 15,
+        slug: CURRENCIES.toString(),
       },
       validateStatus: (status) => status <= 200,
     };
 
     const response = await axios(options);
-    coins = response.data.data;
 
-    console.log("coin info retrieved");
+    info = {
+      ...response.data,
+      data: Object.keys(response.data.data).map((c) =>
+        processCoinInfo(response.data.data[c])
+      ),
+    };
+
+    console.log("coin info retrieved", info);
   } catch (error) {
     console.error(error);
   }
 
-  return coins;
+  return info;
 };
 
 export const processCoinInfo = (coin) => {
   const {
-    id,
     name,
+    slug,
     max_supply,
     circulating_supply,
     total_supply,
@@ -44,8 +65,8 @@ export const processCoinInfo = (coin) => {
   } = coin;
 
   return {
-    id,
     name,
+    slug,
     max_supply,
     circulating_supply,
     total_supply,
