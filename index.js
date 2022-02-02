@@ -6,10 +6,11 @@ import {
   writeToSheet,
 } from "./src/google.js";
 
-// Load environment variables from env file
+/* Load environment variables from env file */
 dotenv.config();
 
-cron.schedule("0 /1 * * *", () => {
+/* Schedule to run root every hour */
+cron.schedule("0 */1 * * *", () => {
   root();
 });
 
