@@ -9,7 +9,7 @@ import {
 // Load environment variables from env file
 dotenv.config();
 
-cron.schedule("* 8 * * *", () => {
+cron.schedule("0 /1 * * *", () => {
   root();
 });
 
