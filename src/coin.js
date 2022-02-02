@@ -15,6 +15,10 @@ export const CURRENCIES = [
   "shiba-inu",
 ];
 
+/* 
+get latest quotes from specified CURRENCIES
+https://coinmarketcap.com/api/documentation/v1/#operation/getV1CryptocurrencyQuotesLatest
+ */
 export const getCoinInfo = async () => {
   let info = null;
 
