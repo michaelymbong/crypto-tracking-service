@@ -1,4 +1,3 @@
-import cron from "node-cron";
 import dotenv from "dotenv";
 import { getCoinInfo } from "./src/coin.js";
 import {
@@ -9,12 +8,7 @@ import {
 /* Load environment variables from env file */
 dotenv.config();
 
-/* Schedule to run root every hour */
-cron.schedule("0 */1 * * *", () => {
-  root();
-});
-
-const root = async () => {
+export const worker = async () => {
   console.log("getting coin info...");
 
   try {
@@ -30,5 +24,3 @@ const root = async () => {
     console.error(error);
   }
 };
-
-// root();

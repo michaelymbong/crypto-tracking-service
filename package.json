@@ -5,7 +5,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node clock.js",
+    "dev": "node worker.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Michael Ymbong",
