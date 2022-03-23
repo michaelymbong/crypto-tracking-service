@@ -1,2 +1,2 @@
-worker: node worker.js
-clock:  node clock.js
+worker: node build/worker.js
+clock:  npm start

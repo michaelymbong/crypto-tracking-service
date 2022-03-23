@@ -5,7 +5,7 @@ import { google } from "googleapis";
 authenticate with google using JWT of the service account
 https://github.com/googleapis/google-auth-library-nodejs/blob/main/samples/jwt.js
  */
-export const authenticate = async () => {
+export const authenticate = async (): Promise<JWT> => {
   const client = new JWT({
     email: process.env.GOOGLE_CLIENT_EMAIL,
     key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n"),
@@ -15,13 +15,13 @@ export const authenticate = async () => {
   return client;
 };
 
-export const writeToSheet = async (auth, { status, data }) => {
+export const writeToSheet = async (auth: JWT, { status, data }: any) => {
   console.log("writing to sheet...");
 
   try {
     const sheets = google.sheets({ version: "v4", auth });
 
-    const editPromises = data.map((coin) => {
+    const editPromises = data.map((coin: any) => {
       /*
       explanation of append parameters
       https://developers.google.com/sheets/api/guides/concepts

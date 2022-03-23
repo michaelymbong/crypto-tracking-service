@@ -4,6 +4,9 @@ ecosystem.config.js
 # Created by https://www.gitignore.io/api/node,sublimetext
 
 ### Node ###
+# Build
+build
+
 # Logs
 logs
 *.log

@@ -1,12 +1,8 @@
-import dotenv from "dotenv";
-import { getCoinInfo } from "./src/coin.js";
-import {
-  authenticate as authenticateGoogle,
-  writeToSheet,
-} from "./src/google.js";
+import "dotenv/config";
+import { getCoinInfo } from "./coin";
+import { authenticate as authenticateGoogle, writeToSheet } from "./google";
 
 /* Load environment variables from env file */
-dotenv.config();
 
 export const worker = async () => {
   console.log("getting coin info...");

@@ -31,7 +31,7 @@ export const getCoinInfo = async () => {
       params: {
         slug: CURRENCIES.toString(),
       },
-      validateStatus: (status) => status <= 200,
+      validateStatus: (status: number) => status <= 200,
     };
 
     const response = await axios(options);
@@ -51,7 +51,7 @@ export const getCoinInfo = async () => {
   return info;
 };
 
-export const processCoinInfo = (coin) => {
+export const processCoinInfo = (coin: any) => {
   const {
     name,
     slug,
