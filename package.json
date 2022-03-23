@@ -8,6 +8,7 @@
     "serve": "node build/clock.js",
     "start": "npm run clean && npm run build && npm run serve",
     "clean": "rm -rf build",
+    "postinstall": "tsc",
     "dev": "npx tsc worker.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
