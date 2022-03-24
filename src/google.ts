@@ -1,5 +1,6 @@
 import { JWT } from "google-auth-library";
 import { google } from "googleapis";
+import { CoinInfoType, ReportType } from "coin-types";
 
 /*
 authenticate with google using JWT of the service account
@@ -15,23 +16,26 @@ export const authenticate = async (): Promise<JWT> => {
   return client;
 };
 
-export const writeToSheet = async (auth: JWT, { status, data }: any) => {
+export const writeToSheet = async (auth: JWT, { status, data }: ReportType) => {
   console.log("writing to sheet...");
 
   try {
     const sheets = google.sheets({ version: "v4", auth });
 
-    const editPromises = data.map((coin: any) => {
+    const editPromises = data.map((coin: CoinInfoType) => {
       /*
       explanation of append parameters
       https://developers.google.com/sheets/api/guides/concepts
       */
+
+      const coinFields: any[] = Object.values(coin);
+
       return sheets.spreadsheets.values.append({
         spreadsheetId: process.env.GOOGLE_SHEET_ID,
         valueInputOption: "RAW",
         range: `'${coin.slug}'!A2:I2`,
         requestBody: {
-          values: [[status.timestamp].concat(Object.values(coin))],
+          values: [[status.timestamp].concat(coinFields)],
         },
       });
     });

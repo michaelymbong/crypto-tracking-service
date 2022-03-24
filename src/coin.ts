@@ -1,4 +1,5 @@
 import axios from "axios";
+import { CoinInfoType, RawCoinType } from "coin-types";
 
 export const CURRENCIES = [
   "bitcoin",
@@ -51,7 +52,7 @@ export const getCoinInfo = async () => {
   return info;
 };
 
-export const processCoinInfo = (coin: any) => {
+export const processCoinInfo = (coin: RawCoinType): CoinInfoType => {
   const {
     name,
     slug,
