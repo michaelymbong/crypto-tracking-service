@@ -7,9 +7,12 @@ authenticate with google using JWT of the service account
 https://github.com/googleapis/google-auth-library-nodejs/blob/main/samples/jwt.js
  */
 export const authenticate = async (): Promise<JWT> => {
+  const google_email = process.env.GOOGLE_CLIENT_EMAIL || "";
+  const google_key = process.env.GOOGLE_PRIVATE_KEY || "";
+
   const client = new JWT({
-    email: process.env.GOOGLE_CLIENT_EMAIL,
-    key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n"),
+    email: google_email,
+    key: google_key.replace(/\\n/g, "\n"),
     scopes: ["https://www.googleapis.com/auth/spreadsheets"],
   });
 
