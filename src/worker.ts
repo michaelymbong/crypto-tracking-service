@@ -19,4 +19,6 @@ export const worker = async () => {
   } catch (error) {
     console.error(error);
   }
+
+  return { success: true };
 };
